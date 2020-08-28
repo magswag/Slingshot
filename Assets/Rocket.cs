@@ -45,9 +45,13 @@ public class Rocket : MonoBehaviour
         float rotateInput = inputMaster.Rocket.Rotate.ReadValue<float>();
         float thrustInput = inputMaster.Rocket.Thrust.ReadValue<float>();
 
-        gravity.rigidbody.MoveRotation( rotateInput * rotateSpeed * Time.fixedDeltaTime);
+        //gravity.rigidbody.MoveRotation( rotateInput * rotateSpeed * Time.fixedDeltaTime);
         //transform.eulerAngles += new Vector3(0, 0, rotateInput * rotateSpeed) * Time.fixedDeltaTime;
 
+        if(rotateInput != 0)
+        {
+            gravity.rigidbody.AddTorque(rotateInput * rotateSpeed);
+        }
 
         if(thrustInput > 0)
         {
@@ -55,7 +59,8 @@ public class Rocket : MonoBehaviour
 
             print(transform.forward);
 
-            gravity.velocity += ((thrustForce * dir) / gravity.mass) * Time.fixedDeltaTime;
+            //gravity.velocity += ((thrustForce * dir) / gravity.mass) * Time.fixedDeltaTime;
+            gravity.rigidbody.AddForce((thrustForce * dir));
         }
 
         var em = exhaustSystem.emission;
