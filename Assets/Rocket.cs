@@ -11,6 +11,8 @@ public class Rocket : MonoBehaviour
 
     private Gravity gravity;
 
+    private ParticleSystem exhaustSystem;
+
     public float thrustForce = 100;
 
     [SerializeField]
@@ -35,6 +37,7 @@ public class Rocket : MonoBehaviour
     void Start()
     {
         gravity = GetComponent<Gravity>();
+        exhaustSystem = GetComponent<ParticleSystem>();
     }
 
     private void FixedUpdate()
@@ -42,19 +45,22 @@ public class Rocket : MonoBehaviour
         float rotateInput = inputMaster.Rocket.Rotate.ReadValue<float>();
         float thrustInput = inputMaster.Rocket.Thrust.ReadValue<float>();
 
-        transform.eulerAngles += new Vector3(0, 0, rotateInput * rotateSpeed) * Time.fixedDeltaTime;
+        gravity.rigidbody.MoveRotation( rotateInput * rotateSpeed * Time.fixedDeltaTime);
+        //transform.eulerAngles += new Vector3(0, 0, rotateInput * rotateSpeed) * Time.fixedDeltaTime;
 
 
         if(thrustInput > 0)
         {
-            
             Vector2 dir = transform.up;
 
             print(transform.forward);
 
             gravity.velocity += ((thrustForce * dir) / gravity.mass) * Time.fixedDeltaTime;
         }
-       
+
+        var em = exhaustSystem.emission;
+
+        em.rateOverDistanceMultiplier = thrustInput;
     }
 
     // Update is called once per frame

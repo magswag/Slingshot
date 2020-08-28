@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrustForce: 25
-  rotateSpeed: 200
+  rotateSpeed: 100
 --- !u!199 &1090374526
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -1441,8 +1441,8 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0.3922414
         - serializedVersion: 3
-          time: 0.45048538
-          value: 1
+          time: 0.16209427
+          value: 0.97297287
           inSlope: -0.13646115
           outSlope: -0.13646115
           tangentMode: 0
