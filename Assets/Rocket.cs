@@ -8,15 +8,18 @@ public class Rocket : MonoBehaviour
 {
 
     private InputMaster inputMaster;
-
     private Gravity gravity;
-
     private ParticleSystem exhaustSystem;
-
     public float thrustForce = 100;
+    private Camera camera;
 
     [SerializeField]
     private float rotateSpeed = 100;
+
+    [SerializeField]
+    private float cameraZoomSensitivity = 10f;
+
+    public Gravity closest;
 
     private void Awake()
     {
@@ -38,6 +41,21 @@ public class Rocket : MonoBehaviour
     {
         gravity = GetComponent<Gravity>();
         exhaustSystem = GetComponent<ParticleSystem>();
+        camera = transform.GetChild(0).gameObject.GetComponent<Camera>();
+    }
+
+    Gravity GetClosestCelestialBody()
+    {
+        List<Gravity> bodies = new List<Gravity>(FindObjectsOfType<Gravity>());
+        bodies.Remove(gravity);
+        bodies.Sort(delegate (Gravity a, Gravity b)
+        {
+            return Vector2.Distance(this.transform.position, a.transform.position)
+            .CompareTo(
+              Vector2.Distance(this.transform.position, b.transform.position));
+        });
+
+        return bodies[0];
     }
 
     private void FixedUpdate()
@@ -57,8 +75,6 @@ public class Rocket : MonoBehaviour
         {
             Vector2 dir = transform.up;
 
-            print(transform.forward);
-
             //gravity.velocity += ((thrustForce * dir) / gravity.mass) * Time.fixedDeltaTime;
             gravity.rigidbody.AddForce((thrustForce * dir));
         }
@@ -68,9 +84,31 @@ public class Rocket : MonoBehaviour
         em.rateOverDistanceMultiplier = thrustInput;
     }
 
+    private void LateUpdate()
+    {
+   
+        
+        //transform.position = Vector3.Lerp(transform.position, new Vector3(target.transform.position.x, target.transform.position.y, -10), cameraSpeed * Time.deltaTime);
+        Vector2 a = (closest.transform.position - transform.position).normalized;
+        float dir = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
+        camera.transform.eulerAngles = new Vector3(0, 0, dir + 90);
+        //transform.rotation = target.transform.rotation;
+
+        camera.orthographicSize -= inputMaster.Camera.Zoom.ReadValue<float>() * Time.deltaTime * cameraZoomSensitivity;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print(gravity.rigidbody.velocity.sqrMagnitude);
+        if (gravity.rigidbody.velocity.sqrMagnitude > 0.5f)
+        {
+            print("dead");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        closest = GetClosestCelestialBody();
     }
 }
