@@ -93,12 +93,14 @@ public class Rocket : MonoBehaviour
    
         
         //transform.position = Vector3.Lerp(transform.position, new Vector3(target.transform.position.x, target.transform.position.y, -10), cameraSpeed * Time.deltaTime);
-        Vector2 a = (closest.transform.position - transform.position).normalized;
+        Vector2 a = (closest.transform.position - gravity.transform.position).normalized;
         float dir = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
         camera.transform.eulerAngles = new Vector3(0, 0, dir + 90);
         //transform.rotation = target.transform.rotation;
 
-        camera.orthographicSize -= inputMaster.Camera.Zoom.ReadValue<float>() * Time.deltaTime * cameraZoomSensitivity;
+        //camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, camera.orthographicSize - inputMaster.Camera.Zoom.ReadValue<float>() * cameraZoomSensitivity, 0.1f * Time.deltaTime);
+
+        camera.orthographicSize = Mathf.Clamp(camera.orthographicSize - (camera.orthographicSize * cameraZoomSensitivity) * inputMaster.Camera.Zoom.ReadValue<float>() * Time.deltaTime, 5, 2500);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

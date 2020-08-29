@@ -29,9 +29,11 @@ public class Universe : MonoBehaviour
                         Vector2[] debugPoints;
 
                         float distanceSquared = Mathf.Pow(Vector3.Distance(otherBody.transform.position, body.transform.position), 2);
+                        //float distanceSquared = Mathf.Pow(Vector3.Distance(otherBody.rigidbody.worldCenterOfMass, body.rigidbody.worldCenterOfMass), 2);
                         float force = G * ((body.mass * otherBody.mass) / distanceSquared);
 
                         Vector3 direction = Vector3.Normalize(otherBody.transform.position - body.transform.position);
+                        //Vector3 direction = Vector3.Normalize(otherBody.rigidbody.worldCenterOfMass - body.rigidbody.worldCenterOfMass);
                         Vector2 acceleration = (force * direction) / body.mass;
 
                         body.velocity += acceleration * Time.fixedDeltaTime;
