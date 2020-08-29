@@ -117,6 +117,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Global",
+            "id": "c6ca68e2-cb98-4dc6-b569-0c7427157e16",
+            "actions": [
+                {
+                    "name": "DecreaseTimeWarp",
+                    "type": "Button",
+                    "id": "5bacdc00-b3e6-4eb4-9192-ce28b5960d3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "IncreaseTimeWarp",
+                    "type": "Button",
+                    "id": "29ac2c8b-ba54-44d4-bc2d-df3c07a2464f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5f730140-9268-48d6-8598-2a29d626b4f0",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DecreaseTimeWarp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52f0fd99-2efd-486e-b88d-32fdfc092e58",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IncreaseTimeWarp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -21,6 +21,8 @@ public class Rocket : MonoBehaviour
 
     public Gravity closest;
 
+    public int warpLevel = 1;
+
     private void Awake()
     {
         inputMaster = new InputMaster();
@@ -42,6 +44,8 @@ public class Rocket : MonoBehaviour
         gravity = GetComponent<Gravity>();
         exhaustSystem = GetComponent<ParticleSystem>();
         camera = transform.GetChild(0).gameObject.GetComponent<Camera>();
+
+        SetWarpLevel(warpLevel);
     }
 
     Gravity GetClosestCelestialBody()
@@ -110,5 +114,20 @@ public class Rocket : MonoBehaviour
     void Update()
     {
         closest = GetClosestCelestialBody();
+
+        if(inputMaster.Global.IncreaseTimeWarp.triggered)
+        {
+            SetWarpLevel(warpLevel + 1);
+        }
+        if (inputMaster.Global.DecreaseTimeWarp.triggered)
+        {
+            SetWarpLevel(warpLevel - 1);
+        }
+    }
+
+    void SetWarpLevel(int level)
+    {
+        warpLevel = Mathf.Clamp(level, 1, 8);
+        Time.timeScale = warpLevel;
     }
 }

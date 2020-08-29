@@ -130,6 +130,52 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Global"",
+            ""id"": ""c6ca68e2-cb98-4dc6-b569-0c7427157e16"",
+            ""actions"": [
+                {
+                    ""name"": ""DecreaseTimeWarp"",
+                    ""type"": ""Button"",
+                    ""id"": ""5bacdc00-b3e6-4eb4-9192-ce28b5960d3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""IncreaseTimeWarp"",
+                    ""type"": ""Button"",
+                    ""id"": ""29ac2c8b-ba54-44d4-bc2d-df3c07a2464f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5f730140-9268-48d6-8598-2a29d626b4f0"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseTimeWarp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52f0fd99-2efd-486e-b88d-32fdfc092e58"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseTimeWarp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -141,6 +187,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        // Global
+        m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+        m_Global_DecreaseTimeWarp = m_Global.FindAction("DecreaseTimeWarp", throwIfNotFound: true);
+        m_Global_IncreaseTimeWarp = m_Global.FindAction("IncreaseTimeWarp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -260,6 +310,47 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // Global
+    private readonly InputActionMap m_Global;
+    private IGlobalActions m_GlobalActionsCallbackInterface;
+    private readonly InputAction m_Global_DecreaseTimeWarp;
+    private readonly InputAction m_Global_IncreaseTimeWarp;
+    public struct GlobalActions
+    {
+        private @InputMaster m_Wrapper;
+        public GlobalActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DecreaseTimeWarp => m_Wrapper.m_Global_DecreaseTimeWarp;
+        public InputAction @IncreaseTimeWarp => m_Wrapper.m_Global_IncreaseTimeWarp;
+        public InputActionMap Get() { return m_Wrapper.m_Global; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+        public void SetCallbacks(IGlobalActions instance)
+        {
+            if (m_Wrapper.m_GlobalActionsCallbackInterface != null)
+            {
+                @DecreaseTimeWarp.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnDecreaseTimeWarp;
+                @DecreaseTimeWarp.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnDecreaseTimeWarp;
+                @DecreaseTimeWarp.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnDecreaseTimeWarp;
+                @IncreaseTimeWarp.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnIncreaseTimeWarp;
+                @IncreaseTimeWarp.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnIncreaseTimeWarp;
+                @IncreaseTimeWarp.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnIncreaseTimeWarp;
+            }
+            m_Wrapper.m_GlobalActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @DecreaseTimeWarp.started += instance.OnDecreaseTimeWarp;
+                @DecreaseTimeWarp.performed += instance.OnDecreaseTimeWarp;
+                @DecreaseTimeWarp.canceled += instance.OnDecreaseTimeWarp;
+                @IncreaseTimeWarp.started += instance.OnIncreaseTimeWarp;
+                @IncreaseTimeWarp.performed += instance.OnIncreaseTimeWarp;
+                @IncreaseTimeWarp.canceled += instance.OnIncreaseTimeWarp;
+            }
+        }
+    }
+    public GlobalActions @Global => new GlobalActions(this);
     public interface IRocketActions
     {
         void OnRotate(InputAction.CallbackContext context);
@@ -268,5 +359,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
     public interface ICameraActions
     {
         void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface IGlobalActions
+    {
+        void OnDecreaseTimeWarp(InputAction.CallbackContext context);
+        void OnIncreaseTimeWarp(InputAction.CallbackContext context);
     }
 }

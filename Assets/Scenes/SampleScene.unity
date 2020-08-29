@@ -123,6 +123,130 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &429874847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3977709886945302244, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
+  m_PrefabInstance: {fileID: 568849182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!60 &429874849
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429874847}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 400, y: 400}
+    newSize: {x: 9.68, y: 9.68}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 37.5, y: -171.5}
+      - {x: 45, y: -167.5}
+      - {x: 51, y: -166.5}
+      - {x: 57.5, y: -164.5}
+      - {x: 62, y: -159.5}
+      - {x: 66.5, y: -153.5}
+      - {x: 70, y: -148.5}
+      - {x: 80, y: -132}
+      - {x: 85, y: -124}
+      - {x: 93, y: -108}
+      - {x: 105, y: -92.5}
+      - {x: 111, y: -84.5}
+      - {x: 116.5, y: -75.5}
+      - {x: 120.5, y: -68}
+      - {x: 123.5, y: -61}
+      - {x: 129, y: -44}
+      - {x: 131.5, y: -35}
+      - {x: 132, y: -32}
+      - {x: 132.5, y: -12.5}
+      - {x: 133.5, y: 0}
+      - {x: 136.5, y: 12}
+      - {x: 137.5, y: 15.5}
+      - {x: 138.5, y: 26}
+      - {x: 138.5, y: 39}
+      - {x: 138, y: 50}
+      - {x: 137, y: 60}
+      - {x: 135.5, y: 66}
+      - {x: 129, y: 80}
+      - {x: 125, y: 88.5}
+      - {x: 121, y: 94}
+      - {x: 103.5, y: 115}
+      - {x: 96, y: 125.5}
+      - {x: 82.5, y: 143}
+      - {x: 63.5, y: 160.5}
+      - {x: 55.5, y: 166}
+      - {x: 46.5, y: 167}
+      - {x: 39.5, y: 171}
+      - {x: 28.5, y: 176}
+      - {x: 23.5, y: 176.5}
+      - {x: 11, y: 176.5}
+      - {x: 6, y: 175}
+      - {x: -3, y: 171}
+      - {x: -8.5, y: 168}
+      - {x: -16.5, y: 167}
+      - {x: -25, y: 166}
+      - {x: -32.5, y: 166.5}
+      - {x: -32.5, y: 165.5}
+      - {x: -48, y: 165.5}
+      - {x: -53, y: 161}
+      - {x: -64, y: 153}
+      - {x: -70.5, y: 146}
+      - {x: -74.5, y: 145}
+      - {x: -83.5, y: 140}
+      - {x: -92.5, y: 130.5}
+      - {x: -98, y: 122}
+      - {x: -103, y: 115}
+      - {x: -107.5, y: 106.5}
+      - {x: -110.5, y: 101.5}
+      - {x: -116, y: 92}
+      - {x: -119, y: 82.5}
+      - {x: -120.5, y: 71.5}
+      - {x: -121, y: 54}
+      - {x: -121.5, y: 45}
+      - {x: -121.5, y: 38}
+      - {x: -120, y: 20}
+      - {x: -119.5, y: -2.5}
+      - {x: -120, y: -3}
+      - {x: -121, y: -5.5}
+      - {x: -121.5, y: -13.5}
+      - {x: -121.5, y: -30.5}
+      - {x: -121, y: -39}
+      - {x: -120, y: -50.5}
+      - {x: -118.5, y: -57.5}
+      - {x: -116, y: -62.5}
+      - {x: -111.5, y: -72.5}
+      - {x: -107, y: -80.5}
+      - {x: -102.5, y: -91}
+      - {x: -98, y: -101}
+      - {x: -95, y: -106.5}
+      - {x: -92, y: -111.5}
+      - {x: -88, y: -117}
+      - {x: -82, y: -126.5}
+      - {x: -70, y: -136.5}
+      - {x: -60.5, y: -144}
+      - {x: -56.5, y: -149}
+      - {x: -45.5, y: -159.5}
+      - {x: -35, y: -167.5}
+      - {x: -28, y: -171.5}
+      - {x: -22, y: -174.5}
+      - {x: -14, y: -177.5}
+      - {x: -3.5, y: -180}
+      - {x: 20.5, y: -180}
+      - {x: 32, y: -176.5}
+      - {x: 34.5, y: -174.5}
 --- !u!1001 &568849182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,6 +270,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3977709886945302242, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b204842b5283a6a4dadd383683358efd, type: 3}
     - target: {fileID: 3977709886945302243, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -208,9 +336,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3977709886945302245, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
       propertyPath: mass
-      value: 4062.5
+      value: 8000
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3977709886945302241, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f85ffa0449d60fc44b3326a1720ba386, type: 3}
 --- !u!1 &1090374521
 GameObject:
