@@ -30,7 +30,7 @@
         frameworkUrl: buildUrl + "/Build.framework.js",
         codeUrl: buildUrl + "/Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
+        companyName: "Magswag",
         productName: "Slingshot",
         productVersion: "1.0",
       };
@@ -45,9 +45,10 @@
         container.className = "unity-mobile";
         config.devicePixelRatio = 1;
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "1280px";
+        canvas.style.height = "720px";
       }
+      canvas.style.background = "url('" + buildUrl + "/Build.jpg') center / cover";
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");

@@ -19,7 +19,8 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     private float cameraZoomSensitivity = 10f;
 
-    public Gravity closest;
+    [HideInInspector]
+    public GameObject closestCelestialBody;
 
     public int warpLevel = 1;
 
@@ -46,13 +47,15 @@ public class Rocket : MonoBehaviour
         camera = transform.GetChild(0).gameObject.GetComponent<Camera>();
 
         SetWarpLevel(warpLevel);
+
+       //Application.targetFrameRate = 30;
     }
 
-    Gravity GetClosestCelestialBody()
+    GameObject GetClosestCelestialBody()
     {
-        List<Gravity> bodies = new List<Gravity>(FindObjectsOfType<Gravity>());
-        bodies.Remove(gravity);
-        bodies.Sort(delegate (Gravity a, Gravity b)
+        List<GameObject> bodies = new List<GameObject>(GameObject.FindGameObjectsWithTag("CelestialBody"));
+
+        bodies.Sort(delegate (GameObject a, GameObject b)
         {
             return Vector2.Distance(this.transform.position, a.transform.position)
             .CompareTo(
@@ -90,17 +93,15 @@ public class Rocket : MonoBehaviour
 
     private void LateUpdate()
     {
-   
-        
         //transform.position = Vector3.Lerp(transform.position, new Vector3(target.transform.position.x, target.transform.position.y, -10), cameraSpeed * Time.deltaTime);
-        Vector2 a = (closest.transform.position - gravity.transform.position).normalized;
+        Vector2 a = (closestCelestialBody.transform.position - gravity.transform.position).normalized;
         float dir = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
         camera.transform.eulerAngles = new Vector3(0, 0, dir + 90);
         //transform.rotation = target.transform.rotation;
 
         //camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, camera.orthographicSize - inputMaster.Camera.Zoom.ReadValue<float>() * cameraZoomSensitivity, 0.1f * Time.deltaTime);
-
-        camera.orthographicSize = Mathf.Clamp(camera.orthographicSize - (camera.orthographicSize * cameraZoomSensitivity) * inputMaster.Camera.Zoom.ReadValue<float>() * Time.deltaTime, 5, 2500);
+        print(inputMaster.Camera.Zoom.ReadValue<float>());
+        camera.orthographicSize = Mathf.Clamp(camera.orthographicSize - (camera.orthographicSize * cameraZoomSensitivity * inputMaster.Camera.Zoom.ReadValue<float>() / 120), 5, 2500);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -115,21 +116,21 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        closest = GetClosestCelestialBody();
+        closestCelestialBody = GetClosestCelestialBody();
 
         if(inputMaster.Global.IncreaseTimeWarp.triggered)
         {
-            SetWarpLevel(warpLevel + 1);
+            SetWarpLevel(warpLevel * 2);
         }
         if (inputMaster.Global.DecreaseTimeWarp.triggered)
         {
-            SetWarpLevel(warpLevel - 1);
+            SetWarpLevel(warpLevel / 2);
         }
     }
 
     void SetWarpLevel(int level)
     {
-        warpLevel = Mathf.Clamp(level, 1, 8);
+        warpLevel = Mathf.Clamp(level, 1, 16);
         Time.timeScale = warpLevel;
     }
 }

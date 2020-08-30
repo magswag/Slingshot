@@ -37,8 +37,6 @@ public class Universe : MonoBehaviour
                         Vector2 acceleration = (force * direction) / body.mass;
 
                         body.velocity += acceleration * Time.fixedDeltaTime;
-
-                        //body.rigidbody.MovePosition(body.transform.position + new Vector3(body.velocity.x, body.velocity.y, 0) * Time.fixedDeltaTime);
                         body.rigidbody.AddForce(force * direction);
                     }
                 }
